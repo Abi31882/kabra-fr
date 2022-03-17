@@ -10,8 +10,8 @@ export interface LoginResponse {
 }
 
 export interface User {
-  _id: string;
-  userName: string;
+  _id?: string;
+  userName?: string;
 }
 
 export interface SignupRequest {
@@ -37,4 +37,16 @@ export interface Products {
   description: string;
   image: string;
   id: string;
+}
+
+export interface Cart {
+  id: string;
+  user: string;
+  product: Products[];
+}
+
+export interface NewCart {
+  product: [];
+  user: "";
+  id: "";
 }

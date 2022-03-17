@@ -8,6 +8,7 @@ import {
 import { AnyAction } from "redux";
 import {
   getMeCompleteAction,
+  getMeErrorAction,
   GET_ME_BEGIN,
   loginCompleteAction,
   loginErrorAction,
@@ -17,8 +18,11 @@ import {
   SIGNUP_BEGIN,
 } from "../actions/auth.actions";
 import {
+  createCartCompleteAction,
   getAllProductCompleteAction,
   getAllProductErrorAction,
+  getCartCompleteAction,
+  getCartErrorAction,
 } from "../actions/product.actions";
 import {
   AUTH_TOKEN,
@@ -26,8 +30,12 @@ import {
   meRequest,
   signupRequest,
 } from "../apis/auth";
-import { allProductsRequest } from "../apis/main";
-import { GET_ALL_PRODUCTS_BEGIN } from "../reducerConstants";
+import { allProductsRequest, createMyCart, myCart } from "../apis/main";
+import {
+  CREATE_CART_BEGIN,
+  GET_ALL_PRODUCTS_BEGIN,
+  GET_CART_BEGIN,
+} from "../reducerConstants";
 
 function* Login(action: AnyAction): Generator<any> {
   try {
@@ -38,6 +46,8 @@ function* Login(action: AnyAction): Generator<any> {
     yield put(loginCompleteAction(res.data.doc));
 
     localStorage.setItem(AUTH_TOKEN, "Bearer " + res.data.token);
+    alert(`welcome ${res.data.doc.userName}, we are logging you in`);
+    window.location.href = "/";
   } catch (e: any) {
     yield put(loginErrorAction(e.response.data.message));
     alert(e.response.data.message);
@@ -49,7 +59,7 @@ function* GetMe(action: AnyAction): Generator<any> {
     const res: any = yield call(meRequest);
     yield put(getMeCompleteAction(res.data.doc));
   } catch (e: any) {
-    alert(e);
+    yield put(getMeErrorAction(e.response.data.message));
   }
 }
 
@@ -66,6 +76,7 @@ function* Signup(action: AnyAction): Generator<any> {
     alert(
       `welcome ${res.data.doc.userName}, account has been created successfully, we are logging you in`
     );
+    window.location.href = "/";
   } catch (e: any) {
     yield put(signupErrorAction(e.response.data.message));
     alert(e.response.data.message);
@@ -79,6 +90,26 @@ function* Allproducts(action: AnyAction): Generator<any> {
   } catch (e: any) {
     alert(e);
     yield put(getAllProductErrorAction(e));
+  }
+}
+
+function* MyCart(action: AnyAction): Generator<any> {
+  try {
+    const res: any = yield call(myCart);
+    yield put(getCartCompleteAction(res.data.doc));
+  } catch (e: any) {
+    yield put(getCartErrorAction(e.response.data));
+  }
+}
+
+function* CreateCart(action: AnyAction): Generator<any> {
+  try {
+    const res: any = yield call(createMyCart, action.payload);
+    yield put(createCartCompleteAction(res.data));
+    alert("cart created successfully");
+  } catch (e: any) {
+    console.log(e.response.data.errors.user.message);
+    alert(e.response.data.errors.user.message);
   }
 }
 
@@ -144,6 +175,8 @@ export function* watchAll() {
     takeEvery(SIGNUP_BEGIN, Signup),
     takeEvery(GET_ME_BEGIN, GetMe),
     takeLatest(GET_ALL_PRODUCTS_BEGIN, Allproducts),
+    takeLatest(GET_CART_BEGIN, MyCart),
+    takeEvery(CREATE_CART_BEGIN, CreateCart),
   ]);
   // yield all([]);
   // yield all([]);

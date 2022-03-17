@@ -32,4 +32,5 @@ export const meRequest = () => {
 
 export const logout = () => {
   localStorage.removeItem(AUTH_TOKEN);
+  window.location.href = "/";
 };

@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { User } from "../interfaces";
 import {
   GET_ME_COMPLETE,
+  GET_ME_ERROR,
   LOGIN_COMPLETE,
   LOGIN_ERROR,
   SIGNUP_COMPLETE,
@@ -32,6 +33,7 @@ export const authReducer: Reducer<AuthState> = (
       };
     case LOGIN_ERROR:
     case SIGNUP_ERROR:
+    case GET_ME_ERROR:
       return {
         ...state,
         error: action.payload,

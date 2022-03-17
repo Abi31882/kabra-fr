@@ -49,3 +49,9 @@ body {
 .product-price {
   font-size: 15px;
 }
+
+.add-button {
+  align-items: center;
+  text-align: center;
+  padding-bottom: 15px;
+}

@@ -1,11 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../config/store";
-import { getAllProductBeginAction } from "../config/store/actions/product.actions";
+import {
+  createCartBeginAction,
+  getAllProductBeginAction,
+} from "../config/store/actions/product.actions";
+import { logout } from "../config/store/apis/auth";
+import { userIdSelector } from "../config/store/selectors/auth.selectors";
+import { cartIdSelector } from "../config/store/selectors/cart.selectors";
 import { allproductsSelector } from "../config/store/selectors/product.selectors";
 import "./css/overview.css";
 
 export const Overview = () => {
+  const user = useAppSelector(userIdSelector);
+  const cart = useAppSelector(cartIdSelector);
   const products = useAppSelector(allproductsSelector);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,6 +30,11 @@ export const Overview = () => {
               <h2>Popular Products</h2>
             </div>
           </div>
+          {user && (
+            <div onClick={logout}>
+              <button>Logout</button>
+            </div>
+          )}
         </div>
         <div className="row">
           {products.map((p) => (
@@ -34,6 +48,29 @@ export const Overview = () => {
                   <h4 className="product-price">₹ {p.price}</h4>
                   <h4 className="product-price">{p.description}</h4>
                 </div>
+                {user ? (
+                  cart ? (
+                    <div className="add-button">
+                      <button>Add to cart</button>
+                    </div>
+                  ) : (
+                    <div className="add-button">
+                      <button
+                        onClick={() => {
+                          dispatch(createCartBeginAction(user));
+                        }}
+                      >
+                        Create my cart
+                      </button>
+                    </div>
+                  )
+                ) : (
+                  <div className="add-button">
+                    <Link to="/login">
+                      <button>Add to cart</button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           ))}

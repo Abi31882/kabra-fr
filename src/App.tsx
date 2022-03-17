@@ -7,6 +7,7 @@ import routeConfig from "./config/routes/routes";
 import { getMeBeginAction } from "./config/store/actions/auth.actions";
 import { AUTH_TOKEN } from "./config/store/apis/auth";
 import { useDispatch } from "react-redux";
+import { getCartBeginAction } from "./config/store/actions/product.actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
       return;
     }
     dispatch(getMeBeginAction());
+    dispatch(getCartBeginAction());
   });
   return (
     <BrowserRouter>

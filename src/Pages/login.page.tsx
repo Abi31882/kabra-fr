@@ -1,7 +1,20 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { loginBeginAction } from "../config/store/actions/auth.actions";
 import img from "../images/bg_1.jpg";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+
+    dispatch(loginBeginAction({ userName, password }));
+  };
   return (
     <div className="d-lg-flex half">
       <div
@@ -18,7 +31,11 @@ const Login = () => {
               <p className="mb-4">
                 New here? <Link to="/signup">Signup</Link>
               </p>
-              <form action="#" method="post">
+              <form
+                onSubmit={(e) => {
+                  onSubmit(e);
+                }}
+              >
                 <div className="form-group first">
                   <label htmlFor="username">Username</label>
                   <input
@@ -26,6 +43,9 @@ const Login = () => {
                     className="form-control"
                     placeholder="your-email@gmail.com"
                     id="username"
+                    onChange={(e) => {
+                      setUserName(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form-group last mb-3">
@@ -35,6 +55,9 @@ const Login = () => {
                     className="form-control"
                     placeholder="Your Password"
                     id="password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                   />
                 </div>
 

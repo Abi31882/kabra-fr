@@ -1,7 +1,18 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { signupBeginAction } from "../config/store/actions/auth.actions";
 import img from "../images/bg_1.jpg";
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    dispatch(signupBeginAction({ userName, password }));
+  };
   return (
     <div className="d-lg-flex half">
       <div
@@ -13,12 +24,16 @@ const Signup = () => {
           <div className="row align-items-center justify-content-center">
             <div className="col-md-7">
               <h3>
-                Signup to the <strong>App</strong>
+                Create your free <strong>Account</strong>
               </h3>
               <p className="mb-4">
                 Already Registered? <Link to="/login">Login Here</Link>
               </p>
-              <form action="#" method="post">
+              <form
+                onSubmit={(e) => {
+                  onSubmit(e);
+                }}
+              >
                 <div className="form-group first">
                   <label htmlFor="username">Username</label>
                   <input
@@ -26,6 +41,9 @@ const Signup = () => {
                     className="form-control"
                     placeholder="your-email@gmail.com"
                     id="username"
+                    onChange={(e) => {
+                      setUserName(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form-group last mb-3">
@@ -35,6 +53,9 @@ const Signup = () => {
                     className="form-control"
                     placeholder="Your Password"
                     id="password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                   />
                 </div>
 

@@ -1,0 +1,51 @@
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444444;
+}
+
+.section-products {
+  padding: 80px 0 54px;
+}
+
+.section-products .header {
+  margin-bottom: 50px;
+}
+
+.section-products .header h3 {
+  font-size: 1rem;
+  color: #fe302f;
+  font-weight: 500;
+}
+
+.section-products .header h2 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #444444;
+}
+
+.section-products .single-product .part-1 {
+  position: relative;
+  height: 290px;
+  max-height: 290px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.part-1 {
+  align-items: center;
+  text-align: center;
+}
+
+.part-2 {
+  align-items: center;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.product-title {
+  font-size: 20px;
+  color: #fe302f;
+}
+
+.product-price {
+  font-size: 15px;
+}

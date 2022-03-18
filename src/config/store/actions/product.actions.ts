@@ -1,5 +1,8 @@
 import { Cart, NewCart, Products } from "../interfaces";
 import {
+  ADD_PRODUCT_TOCART_BEGIN,
+  ADD_PRODUCT_TOCART_COMPLETE,
+  ADD_PRODUCT_TOCART_ERROR,
   CREATE_CART_BEGIN,
   CREATE_CART_COMPLETE,
   CREATE_CART_ERROR,
@@ -51,5 +54,23 @@ export const createCartCompleteAction = (newCart: NewCart) => ({
 
 export const createCartErrorAction = (err: string) => ({
   type: CREATE_CART_ERROR,
+  payload: err,
+});
+
+export const addproductToCartBeginAction = (
+  productId: string,
+  cartId: string
+) => ({
+  type: ADD_PRODUCT_TOCART_BEGIN,
+  payload: { productId, cartId },
+});
+
+export const addproductToCartCompleteAction = (cart: Cart) => ({
+  type: ADD_PRODUCT_TOCART_COMPLETE,
+  payload: cart,
+});
+
+export const addproductToCartErrorAction = (err: string) => ({
+  type: ADD_PRODUCT_TOCART_ERROR,
   payload: err,
 });

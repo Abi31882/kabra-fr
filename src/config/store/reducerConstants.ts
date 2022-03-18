@@ -21,3 +21,7 @@ export const GET_CART_ERROR = "get/cart_error";
 export const CREATE_CART_BEGIN = "create/cart_begin";
 export const CREATE_CART_COMPLETE = "create/cart_complete";
 export const CREATE_CART_ERROR = "create/cart_error";
+
+export const ADD_PRODUCT_TOCART_BEGIN = "add/product_tocart_begin";
+export const ADD_PRODUCT_TOCART_COMPLETE = "add/product_tocart_complete";
+export const ADD_PRODUCT_TOCART_ERROR = "add/product_tocart_error";

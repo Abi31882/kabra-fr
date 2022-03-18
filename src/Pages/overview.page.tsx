@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../config/store";
 import {
+  addproductToCartBeginAction,
   createCartBeginAction,
   getAllProductBeginAction,
 } from "../config/store/actions/product.actions";
@@ -35,6 +36,11 @@ export const Overview = () => {
               <button>Logout</button>
             </div>
           )}
+          {user && (
+            <Link to="/cart">
+              <button>My Cart</button>
+            </Link>
+          )}
         </div>
         <div className="row">
           {products.map((p) => (
@@ -51,7 +57,13 @@ export const Overview = () => {
                 {user ? (
                   cart ? (
                     <div className="add-button">
-                      <button>Add to cart</button>
+                      <button
+                        onClick={() => {
+                          dispatch(addproductToCartBeginAction(p.id, cart));
+                        }}
+                      >
+                        Add to cart
+                      </button>
                     </div>
                   ) : (
                     <div className="add-button">

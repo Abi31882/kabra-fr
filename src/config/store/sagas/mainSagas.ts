@@ -18,6 +18,8 @@ import {
   SIGNUP_BEGIN,
 } from "../actions/auth.actions";
 import {
+  addproductToCartCompleteAction,
+  addproductToCartErrorAction,
   createCartCompleteAction,
   getAllProductCompleteAction,
   getAllProductErrorAction,
@@ -30,8 +32,14 @@ import {
   meRequest,
   signupRequest,
 } from "../apis/auth";
-import { allProductsRequest, createMyCart, myCart } from "../apis/main";
 import {
+  addToCart,
+  allProductsRequest,
+  createMyCart,
+  myCart,
+} from "../apis/main";
+import {
+  ADD_PRODUCT_TOCART_BEGIN,
   CREATE_CART_BEGIN,
   GET_ALL_PRODUCTS_BEGIN,
   GET_CART_BEGIN,
@@ -113,6 +121,20 @@ function* CreateCart(action: AnyAction): Generator<any> {
   }
 }
 
+function* AddProductToCart(action: AnyAction): Generator<any> {
+  try {
+    const res: any = yield call(
+      addToCart,
+      action.payload.productId,
+      action.payload.cartId
+    );
+    yield put(addproductToCartCompleteAction(res.data.doc));
+    alert("product added successfully");
+  } catch (e: any) {
+    yield put(addproductToCartErrorAction(e.response.data));
+    alert(e.response.data);
+  }
+}
 // function* GetMe(action: AnyAction): Generator<any> {
 //   try {
 //     const res: any = yield call(me);
@@ -177,6 +199,7 @@ export function* watchAll() {
     takeLatest(GET_ALL_PRODUCTS_BEGIN, Allproducts),
     takeLatest(GET_CART_BEGIN, MyCart),
     takeEvery(CREATE_CART_BEGIN, CreateCart),
+    takeLatest(ADD_PRODUCT_TOCART_BEGIN, AddProductToCart),
   ]);
   // yield all([]);
   // yield all([]);

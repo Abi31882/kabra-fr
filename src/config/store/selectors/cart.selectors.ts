@@ -3,5 +3,10 @@ import { cartStateSelector } from "./app.selectors";
 
 export const cartIdSelector = createSelector(
   [cartStateSelector],
-  (cartState) => cartState.cart?.id
+  (cartState) => cartState.myCart?.id
+);
+
+export const cartProductsSelector = createSelector(
+  [cartStateSelector],
+  (cartState) => cartState.myCart.product
 );

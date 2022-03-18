@@ -26,3 +26,23 @@ export const createMyCart = (user: string) => {
     { headers: { Authorization: token! } }
   );
 };
+
+export const addToCart = (productId: string, cartId: string) => {
+  const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
+
+  return axios.post(url, {}, { headers: { Authorization: token! } });
+};
+
+export const updateQuantity = (
+  productId: string,
+  cartId: string,
+  quantity: number
+) => {
+  const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
+
+  return axios.patch(
+    url,
+    { quantity: quantity },
+    { headers: { Authorization: token! } }
+  );
+};

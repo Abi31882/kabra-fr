@@ -47,6 +47,9 @@ export const Overview = () => {
               <button>My Cart</button>
             </div>
           )}
+          <div onClick={() => navigate("/addProduct")}>
+            <button>create Product</button>
+          </div>
         </div>
         <div className="row">
           {products.map((p) => (

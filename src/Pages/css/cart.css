@@ -205,4 +205,5 @@ ul {
   text-align: center;
   justify-content: center;
   justify-items: center;
+  cursor: pointer;
 }

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../config/store";
 import {
   addproductToCartBeginAction,
@@ -9,15 +9,20 @@ import {
 } from "../config/store/actions/product.actions";
 import { logout } from "../config/store/apis/auth";
 import { userIdSelector } from "../config/store/selectors/auth.selectors";
-import { cartIdSelector } from "../config/store/selectors/cart.selectors";
+import {
+  cartIdSelector,
+  cartProductsSelector,
+} from "../config/store/selectors/cart.selectors";
 import { allproductsSelector } from "../config/store/selectors/product.selectors";
 import "./css/overview.css";
 
 export const Overview = () => {
   const user = useAppSelector(userIdSelector);
+  const navigate = useNavigate();
   const cart = useAppSelector(cartIdSelector);
   const products = useAppSelector(allproductsSelector);
   const dispatch = useDispatch();
+  const cartProducts = useAppSelector(cartProductsSelector);
   useEffect(() => {
     dispatch(getAllProductBeginAction());
   }, []);
@@ -37,9 +42,9 @@ export const Overview = () => {
             </div>
           )}
           {user && (
-            <Link to="/cart">
+            <div onClick={() => navigate("/cart")}>
               <button>My Cart</button>
-            </Link>
+            </div>
           )}
         </div>
         <div className="row">
@@ -56,24 +61,27 @@ export const Overview = () => {
                 </div>
                 {user ? (
                   cart ? (
-                    <div className="add-button">
-                      <button
-                        onClick={() => {
-                          dispatch(
-                            addproductToCartBeginAction(
-                              p.id,
-                              cart,
-                              p.name,
-                              p.image,
-                              p.price,
-                              p.quantity
-                            )
-                          );
-                        }}
-                      >
-                        Add to cart
-                      </button>
-                    </div>
+                    cartProducts.find((c) => c.productID === p.id) ===
+                      undefined && (
+                      <div className="add-button">
+                        <button
+                          onClick={() => {
+                            dispatch(
+                              addproductToCartBeginAction(
+                                p.id,
+                                cart,
+                                p.name,
+                                p.image,
+                                p.price,
+                                p.quantity
+                              )
+                            );
+                          }}
+                        >
+                          Add to cart
+                        </button>
+                      </div>
+                    )
                   ) : (
                     <div className="add-button">
                       <button

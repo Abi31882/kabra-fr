@@ -48,6 +48,7 @@ export interface Cart {
     quantity: number;
     image: string;
     _id: string;
+    productID: string;
   }[];
 }
 

@@ -39,7 +39,13 @@ export const addToCart = (
 
   return axios.post(
     url,
-    { name: name, image: image, price: price, quantity: quantity },
+    {
+      name: name,
+      image: image,
+      price: price,
+      quantity: quantity,
+      productID: productId,
+    },
     { headers: { Authorization: token! } }
   );
 };
@@ -51,9 +57,9 @@ export const updateQuantity = (
 ) => {
   const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
 
-  return axios.patch(
-    url,
-    { quantity: quantity },
-    { headers: { Authorization: token! } }
-  );
+  return axios
+    .patch(url, { quantity: quantity }, { headers: { Authorization: token! } })
+    .catch((e) => {
+      alert(e.response.data);
+    });
 };

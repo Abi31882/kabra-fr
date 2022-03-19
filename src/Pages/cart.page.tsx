@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../config/store";
@@ -13,7 +12,7 @@ const MyCart = () => {
   const dispatch = useDispatch();
   const cartProducts = useAppSelector(cartProductsSelector);
   const cartId = useAppSelector(cartIdSelector);
-  const myArr = cartProducts.map((p) => p.price);
+  const myArr = cartProducts.map((p) => p.price * p.quantity);
   const reducer = (accumulator: number, curr: number) => accumulator + curr;
   return (
     <div className="cart_section">
@@ -40,7 +39,18 @@ const MyCart = () => {
                         <div className=" cart_item_quantity cart_info_col">
                           <div className="cart_item_title">Quantity</div>
                           <div className="quantity">
-                            <div className="quantity-item">
+                            <div
+                              onClick={() => {
+                                updateQuantity(
+                                  p.productID,
+                                  cartId,
+                                  p.quantity - 1
+                                ).then((r) => {
+                                  dispatch(getCartBeginAction());
+                                });
+                              }}
+                              className="quantity-item"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="10"
@@ -58,8 +68,13 @@ const MyCart = () => {
                             <div className="quantity-item">{p.quantity}</div>
                             <div
                               onClick={() => {
-                                updateQuantity(p._id, cartId, p.quantity + 1);
-                                dispatch(getCartBeginAction());
+                                updateQuantity(
+                                  p.productID,
+                                  cartId,
+                                  p.quantity + 1
+                                ).then((r) => {
+                                  dispatch(getCartBeginAction());
+                                });
                               }}
                               className="quantity-item"
                             >
@@ -78,7 +93,9 @@ const MyCart = () => {
                         </div>
                         <div className="cart_item_price cart_info_col">
                           <div className="cart_item_title">Price</div>
-                          <div className="cart_item_text">₹ {p.price}</div>
+                          <div className="cart_item_text">
+                            ₹ {p.price * p.quantity}
+                          </div>
                         </div>
                       </div>
                     </li>

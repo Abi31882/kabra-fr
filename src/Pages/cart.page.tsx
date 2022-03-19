@@ -29,7 +29,7 @@ const MyCart = () => {
                   <ul className="cart_list">
                     <li className="cart_item clearfix">
                       <div className="cart_item_image">
-                        <img src={p.image} />
+                        <img src={p.image} alt="non" />
                       </div>
                       <div className="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                         <div className="cart_item_name cart_info_col">

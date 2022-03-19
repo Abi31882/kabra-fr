@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../config/store";
+import { Link } from "react-router-dom";
 import { loginBeginAction } from "../config/store/actions/auth.actions";
 import img from "../images/bg_1.jpg";
 

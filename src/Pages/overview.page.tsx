@@ -25,6 +25,7 @@ export const Overview = () => {
   const cartProducts = useAppSelector(cartProductsSelector);
   useEffect(() => {
     dispatch(getAllProductBeginAction());
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -52,7 +53,7 @@ export const Overview = () => {
             <div className="col-md-6 col-sm-12 col-lg-4 col-xl-3">
               <div id="product-1" className="single-product">
                 <div className="part-1">
-                  <img className="part-1" src={p.image} />
+                  <img className="part-1" alt="non" src={p.image} />
                 </div>
                 <div className="part-2">
                   <h3 className="product-title">{p.name}</h3>

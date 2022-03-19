@@ -63,3 +63,27 @@ export const updateQuantity = (
       alert(e.response.data);
     });
 };
+
+export const createProduct = (data: any) => {
+  const form = new FormData();
+  // console.log(form);
+  form.append("name", data.name);
+  form.append("image", data.image);
+  form.append("description", data.description);
+  form.append("price", data.price);
+  form.append("quantity", data.quantity);
+
+  // form.append("image", data);
+  const url = BASE_URL + "/product/create";
+
+  return axios({
+    method: "POST",
+    url: url,
+    data: form,
+    headers: {
+      // Authorization: AUTH_TOKEN,
+      "Content-type": "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};

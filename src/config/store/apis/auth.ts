@@ -8,7 +8,8 @@ import {
 } from "../interfaces";
 
 // export const BASE_URL = "https://smbackend1.herokuapp.com";
-export const BASE_URL = "http://127.0.0.1:3000";
+// export const BASE_URL = "http://127.0.0.1:3000";
+export const BASE_URL = "https://kabra-back.herokuapp.com";
 export const AUTH_TOKEN = "Login Token";
 
 export const loginRequest = (data: LoginRequest) => {

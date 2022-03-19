@@ -104,7 +104,8 @@ function* Allproducts(action: AnyAction): Generator<any> {
 function* MyCart(action: AnyAction): Generator<any> {
   try {
     const res: any = yield call(myCart);
-    yield put(getCartCompleteAction(res.data.doc));
+    console.log(res.data);
+    yield put(getCartCompleteAction(res.data));
   } catch (e: any) {
     yield put(getCartErrorAction(e.response.data));
   }
@@ -123,10 +124,15 @@ function* CreateCart(action: AnyAction): Generator<any> {
 
 function* AddProductToCart(action: AnyAction): Generator<any> {
   try {
+    const { productId, cartId, name, image, price, quantity } = action.payload;
     const res: any = yield call(
       addToCart,
-      action.payload.productId,
-      action.payload.cartId
+      productId,
+      cartId,
+      name,
+      image,
+      price,
+      quantity
     );
     yield put(addproductToCartCompleteAction(res.data.doc));
     alert("product added successfully");

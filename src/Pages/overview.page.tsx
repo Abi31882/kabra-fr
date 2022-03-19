@@ -59,7 +59,16 @@ export const Overview = () => {
                     <div className="add-button">
                       <button
                         onClick={() => {
-                          dispatch(addproductToCartBeginAction(p.id, cart));
+                          dispatch(
+                            addproductToCartBeginAction(
+                              p.id,
+                              cart,
+                              p.name,
+                              p.image,
+                              p.price,
+                              p.quantity
+                            )
+                          );
                         }}
                       >
                         Add to cart

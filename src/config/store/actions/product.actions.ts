@@ -59,10 +59,14 @@ export const createCartErrorAction = (err: string) => ({
 
 export const addproductToCartBeginAction = (
   productId: string,
-  cartId: string
+  cartId: string,
+  name: string,
+  image: string,
+  price: number,
+  quantity: number
 ) => ({
   type: ADD_PRODUCT_TOCART_BEGIN,
-  payload: { productId, cartId },
+  payload: { productId, cartId, name, image, price, quantity },
 });
 
 export const addproductToCartCompleteAction = (cart: Cart) => ({

@@ -58,7 +58,7 @@ const MyCart = () => {
                             <div className="quantity-item">{p.quantity}</div>
                             <div
                               onClick={() => {
-                                updateQuantity(p.id, cartId, p.quantity + 1);
+                                updateQuantity(p._id, cartId, p.quantity + 1);
                                 dispatch(getCartBeginAction());
                               }}
                               className="quantity-item"

@@ -42,7 +42,13 @@ export interface Products {
 export interface Cart {
   id: string;
   user: string;
-  product: Products[];
+  product: {
+    name: string;
+    price: number;
+    quantity: number;
+    image: string;
+    _id: string;
+  }[];
 }
 
 export interface NewCart {

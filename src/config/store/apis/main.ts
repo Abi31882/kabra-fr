@@ -27,10 +27,21 @@ export const createMyCart = (user: string) => {
   );
 };
 
-export const addToCart = (productId: string, cartId: string) => {
+export const addToCart = (
+  productId: string,
+  cartId: string,
+  name: string,
+  image: string,
+  price: number,
+  quantity: number
+) => {
   const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
 
-  return axios.post(url, {}, { headers: { Authorization: token! } });
+  return axios.post(
+    url,
+    { name: name, image: image, price: price, quantity: quantity },
+    { headers: { Authorization: token! } }
+  );
 };
 
 export const updateQuantity = (

@@ -5,7 +5,6 @@ import {
   getCartBeginAction,
   updateQuantityBeginAction,
 } from "../config/store/actions/product.actions";
-// import { updateQuantity } from "../config/store/apis/main";
 import {
   cartIdSelector,
   cartLoadingSelector,

@@ -8,7 +8,10 @@ import {
   getAllProductBeginAction,
 } from "../config/store/actions/product.actions";
 import { logout } from "../config/store/apis/auth";
-import { userIdSelector } from "../config/store/selectors/auth.selectors";
+import {
+  userIdSelector,
+  userSelector,
+} from "../config/store/selectors/auth.selectors";
 import {
   cartIdSelector,
   cartLoadingSelector,
@@ -22,6 +25,7 @@ import "./css/overview.css";
 import Loader from "./loader";
 
 export const Overview = () => {
+  const User = useAppSelector(userSelector);
   const loading1 = useAppSelector(productLoadingSelector);
   const loading2 = useAppSelector(cartLoadingSelector);
   const user = useAppSelector(userIdSelector);
@@ -43,6 +47,11 @@ export const Overview = () => {
     <section className="section-products">
       <div className="container">
         <div className="row justify-content-center text-center">
+          {user && (
+            <div>
+              <button className="btn btn-danger">{User}</button>
+            </div>
+          )}
           <div className="col-md-8 col-lg-6">
             <div className="header">
               <h2>Popular Products</h2>
@@ -50,10 +59,7 @@ export const Overview = () => {
           </div>
           {user && (
             <div onClick={logout}>
-              <button
-                style={{ marginRight: "10px" }}
-                className="btn btn-danger"
-              >
+              <button style={{ marginRight: "10px" }} className="btn btn-dark">
                 Logout
               </button>
             </div>
@@ -63,11 +69,13 @@ export const Overview = () => {
               style={{ marginRight: "10px" }}
               onClick={() => navigate("/cart")}
             >
-              <button className="btn btn-success">My Cart</button>
+              <button className="btn btn-dark">My Cart</button>
             </div>
           )}
           <div onClick={() => navigate("/addProduct")}>
-            <button className="btn btn-dark">create Product</button>
+            <button style={{ marginRight: "10px" }} className="btn btn-dark">
+              create Product
+            </button>
           </div>
         </div>
         <div className="row">

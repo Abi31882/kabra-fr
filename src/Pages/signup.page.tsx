@@ -13,14 +13,15 @@ const Signup = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+  if (loading) {
+    return <Loader />;
+  }
+
   const onSubmit = (e: any) => {
     e.preventDefault();
     dispatch(signupBeginAction({ userName, password }));
   };
 
-  if (loading) {
-    return <Loader />;
-  }
   return (
     <div className="d-lg-flex half">
       <div

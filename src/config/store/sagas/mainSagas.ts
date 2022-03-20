@@ -58,7 +58,7 @@ function* Login(action: AnyAction): Generator<any> {
     yield put(loginCompleteAction(res.data.doc));
 
     localStorage.setItem(AUTH_TOKEN, "Bearer " + res.data.token);
-    alert(`welcome ${res.data.doc.userName}, we are logging you in`);
+    // alert(`welcome ${res.data.doc.userName}, we are logging you in`);
     window.location.href = "/";
   } catch (e: any) {
     yield put(loginErrorAction(e.response.data.message));
@@ -85,9 +85,9 @@ function* Signup(action: AnyAction): Generator<any> {
 
     localStorage.setItem(AUTH_TOKEN, "Bearer " + res.data.token);
 
-    alert(
-      `welcome ${res.data.doc.userName}, account has been created successfully, we are logging you in`
-    );
+    // alert(
+    //   `welcome ${res.data.doc.userName}, account has been created successfully, we are logging you in`
+    // );
     window.location.href = "/";
   } catch (e: any) {
     yield put(signupErrorAction(e.response.data.message));
@@ -148,8 +148,8 @@ function* UpdateQuantity(action: AnyAction): Generator<any> {
   const { productId, cartId, quantity } = action.payload;
   try {
     const res: any = yield call(updateQuantity, productId, cartId, quantity);
-    yield put(updateQuantityCompleteAction(res.data));
-    // window.location.href = "/";
+    console.log(res.data);
+    yield put(updateQuantityCompleteAction());
   } catch (e: any) {
     yield put(updateQuantityErrorAction(e.response.data));
     alert(e.response.data);

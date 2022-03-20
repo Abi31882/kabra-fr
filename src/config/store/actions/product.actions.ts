@@ -90,9 +90,8 @@ export const updateQuantityBeginAction = (
   payload: { productId, cartId, quantity },
 });
 
-export const updateQuantityCompleteAction = (cart: Cart) => ({
+export const updateQuantityCompleteAction = () => ({
   type: UPDATE_QUANTITY_COMPLETE,
-  payload: cart,
 });
 
 export const updateQuantityErrorAction = (err: string) => ({

@@ -10,3 +10,8 @@ export const authLoadingSelector = createSelector(
   [authStateSelector],
   (authState) => authState.loading
 );
+
+export const userSelector = createSelector(
+  [authStateSelector],
+  (authState) => authState.user.userName
+);

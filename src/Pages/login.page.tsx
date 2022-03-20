@@ -12,7 +12,6 @@ const Login = () => {
   const loading = useAppSelector(authLoadingSelector);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  console.log(loading);
 
   if (loading) {
     return <Loader />;
@@ -22,6 +21,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginBeginAction({ userName, password }));
   };
+
   return (
     <div className="d-lg-flex half" style={{ zIndex: 1 }}>
       <div

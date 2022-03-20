@@ -1,19 +1,40 @@
+import ReactLoading from "react-loading";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../config/store";
-import { getCartBeginAction } from "../config/store/actions/product.actions";
+import {
+  getCartBeginAction,
+  updateQuantityBeginAction,
+} from "../config/store/actions/product.actions";
 import { updateQuantity } from "../config/store/apis/main";
 import {
   cartIdSelector,
+  cartLoadingSelector,
   cartProductsSelector,
 } from "../config/store/selectors/cart.selectors";
 import "./css/cart.css";
 const MyCart = () => {
+  const loading = useAppSelector(cartLoadingSelector);
   const dispatch = useDispatch();
   const cartProducts = useAppSelector(cartProductsSelector);
   const cartId = useAppSelector(cartIdSelector);
   const myArr = cartProducts.map((p) => p.price * p.quantity);
   const reducer = (accumulator: number, curr: number) => accumulator + curr;
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "250px",
+        }}
+      >
+        <ReactLoading color="black" height="screen" type="spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="cart_section">
       <div className="container-fluid">
@@ -41,13 +62,20 @@ const MyCart = () => {
                           <div className="quantity">
                             <div
                               onClick={() => {
-                                updateQuantity(
-                                  p.productID,
-                                  cartId,
-                                  p.quantity - 1
-                                ).then((r) => {
-                                  dispatch(getCartBeginAction());
-                                });
+                                dispatch(
+                                  updateQuantityBeginAction(
+                                    p.productID,
+                                    cartId,
+                                    p.quantity - 1
+                                  )
+                                );
+                                dispatch(getCartBeginAction());
+                                // updateQuantity(
+                                //   p.productID,
+                                //   cartId,
+                                //   p.quantity - 1
+                                // ).then((r) => {
+                                // });
                               }}
                               className="quantity-item"
                             >
@@ -68,13 +96,22 @@ const MyCart = () => {
                             <div className="quantity-item">{p.quantity}</div>
                             <div
                               onClick={() => {
-                                updateQuantity(
-                                  p.productID,
-                                  cartId,
-                                  p.quantity + 1
-                                ).then((r) => {
-                                  dispatch(getCartBeginAction());
-                                });
+                                dispatch(
+                                  updateQuantityBeginAction(
+                                    p.productID,
+                                    cartId,
+                                    p.quantity + 1
+                                  )
+                                );
+                                dispatch(getCartBeginAction());
+
+                                // updateQuantity(
+                                //   p.productID,
+                                //   cartId,
+                                //   p.quantity + 1
+                                // ).then((r) => {
+                                //   dispatch(getCartBeginAction());
+                                // });
                               }}
                               className="quantity-item"
                             >

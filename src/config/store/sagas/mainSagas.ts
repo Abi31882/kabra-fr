@@ -25,6 +25,8 @@ import {
   getAllProductErrorAction,
   getCartCompleteAction,
   getCartErrorAction,
+  updateQuantityCompleteAction,
+  updateQuantityErrorAction,
 } from "../actions/product.actions";
 import {
   AUTH_TOKEN,
@@ -37,12 +39,14 @@ import {
   allProductsRequest,
   createMyCart,
   myCart,
+  updateQuantity,
 } from "../apis/main";
 import {
   ADD_PRODUCT_TOCART_BEGIN,
   CREATE_CART_BEGIN,
   GET_ALL_PRODUCTS_BEGIN,
   GET_CART_BEGIN,
+  UPDATE_QUANTITY_BEGIN,
 } from "../reducerConstants";
 
 function* Login(action: AnyAction): Generator<any> {
@@ -104,7 +108,6 @@ function* Allproducts(action: AnyAction): Generator<any> {
 function* MyCart(action: AnyAction): Generator<any> {
   try {
     const res: any = yield call(myCart);
-    console.log(res.data);
     yield put(getCartCompleteAction(res.data));
   } catch (e: any) {
     yield put(getCartErrorAction(e.response.data));
@@ -117,7 +120,6 @@ function* CreateCart(action: AnyAction): Generator<any> {
     yield put(createCartCompleteAction(res.data));
     alert("cart created successfully");
   } catch (e: any) {
-    console.log(e.response.data.errors.user.message);
     alert(e.response.data.errors.user.message);
   }
 }
@@ -138,6 +140,17 @@ function* AddProductToCart(action: AnyAction): Generator<any> {
     alert("product added successfully");
   } catch (e: any) {
     yield put(addproductToCartErrorAction(e.response.data));
+    alert(e.response.data);
+  }
+}
+
+function* UpdateQuantity(action: AnyAction): Generator<any> {
+  const { productId, cartId, quantity } = action.payload;
+  try {
+    const res: any = yield call(updateQuantity, productId, cartId, quantity);
+    yield put(updateQuantityCompleteAction(res.data));
+  } catch (e: any) {
+    yield put(updateQuantityErrorAction(e.response.data));
     alert(e.response.data);
   }
 }
@@ -206,6 +219,7 @@ export function* watchAll() {
     takeLatest(GET_CART_BEGIN, MyCart),
     takeEvery(CREATE_CART_BEGIN, CreateCart),
     takeLatest(ADD_PRODUCT_TOCART_BEGIN, AddProductToCart),
+    takeLatest(UPDATE_QUANTITY_BEGIN, UpdateQuantity),
   ]);
   // yield all([]);
   // yield all([]);

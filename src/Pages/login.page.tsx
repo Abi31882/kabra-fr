@@ -1,21 +1,39 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../config/store";
 import { loginBeginAction } from "../config/store/actions/auth.actions";
+import { loadingSelector } from "../config/store/selectors/auth.selectors";
 import img from "../images/bg_1.jpg";
+import ReactLoading from "react-loading";
 
 const Login = () => {
   const dispatch = useDispatch();
-
+  const loading = useAppSelector(loadingSelector);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  console.log(loading);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "250px",
+        }}
+      >
+        <ReactLoading color="black" height="screen" type="spin" />
+      </div>
+    );
+  }
 
   const onSubmit = (e: any) => {
     e.preventDefault();
     dispatch(loginBeginAction({ userName, password }));
   };
   return (
-    <div className="d-lg-flex half">
+    <div className="d-lg-flex half" style={{ zIndex: 1 }}>
       <div
         className="bg order-1 order-md-2"
         style={{ backgroundImage: `url(${img})` }}

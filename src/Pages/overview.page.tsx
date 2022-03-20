@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import ReactLoading from "react-loading";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../config/store";
@@ -13,10 +14,14 @@ import {
   cartIdSelector,
   cartProductsSelector,
 } from "../config/store/selectors/cart.selectors";
-import { allproductsSelector } from "../config/store/selectors/product.selectors";
+import {
+  allproductsSelector,
+  productLoadingSelector,
+} from "../config/store/selectors/product.selectors";
 import "./css/overview.css";
 
 export const Overview = () => {
+  const loading = useAppSelector(productLoadingSelector);
   const user = useAppSelector(userIdSelector);
   const navigate = useNavigate();
   const cart = useAppSelector(cartIdSelector);
@@ -27,6 +32,20 @@ export const Overview = () => {
     dispatch(getAllProductBeginAction());
     // eslint-disable-next-line
   }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "250px",
+        }}
+      >
+        <ReactLoading color="black" height="screen" type="spin" />
+      </div>
+    );
+  }
 
   return (
     <section className="section-products">
@@ -39,16 +58,24 @@ export const Overview = () => {
           </div>
           {user && (
             <div onClick={logout}>
-              <button>Logout</button>
+              <button
+                style={{ marginRight: "10px" }}
+                className="btn btn-danger"
+              >
+                Logout
+              </button>
             </div>
           )}
           {user && (
-            <div onClick={() => navigate("/cart")}>
-              <button>My Cart</button>
+            <div
+              style={{ marginRight: "10px" }}
+              onClick={() => navigate("/cart")}
+            >
+              <button className="btn btn-success">My Cart</button>
             </div>
           )}
           <div onClick={() => navigate("/addProduct")}>
-            <button>create Product</button>
+            <button className="btn btn-dark">create Product</button>
           </div>
         </div>
         <div className="row">
@@ -69,6 +96,7 @@ export const Overview = () => {
                       undefined && (
                       <div className="add-button">
                         <button
+                          className="btn btn-dark"
                           onClick={() => {
                             dispatch(
                               addproductToCartBeginAction(
@@ -89,6 +117,7 @@ export const Overview = () => {
                   ) : (
                     <div className="add-button">
                       <button
+                        className="btn btn-dark"
                         onClick={() => {
                           dispatch(createCartBeginAction(user));
                         }}
@@ -99,9 +128,14 @@ export const Overview = () => {
                   )
                 ) : (
                   <div className="add-button">
-                    <Link to="/login">
-                      <button>Add to cart</button>
-                    </Link>
+                    <button
+                      className="btn btn-dark"
+                      onClick={() => {
+                        navigate("/login");
+                      }}
+                    >
+                      Add to cart
+                    </button>
                   </div>
                 )}
               </div>

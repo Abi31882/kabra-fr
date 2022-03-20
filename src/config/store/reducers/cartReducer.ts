@@ -6,16 +6,20 @@ import {
   CREATE_CART_COMPLETE,
   GET_CART_COMPLETE,
   GET_CART_ERROR,
+  UPDATE_QUANTITY_BEGIN,
+  UPDATE_QUANTITY_COMPLETE,
 } from "../reducerConstants";
 
 export interface CartState {
   myCart: Cart;
   error: string;
+  loading: boolean;
 }
 
 const initialState: CartState = {
   myCart: { id: "", user: "", product: [] },
   error: "",
+  loading: false,
 };
 
 export const cartReduser: Reducer<CartState> = (
@@ -23,10 +27,13 @@ export const cartReduser: Reducer<CartState> = (
   action
 ) => {
   switch (action.type) {
+    case UPDATE_QUANTITY_BEGIN:
+      return { ...state, loading: true };
     case GET_CART_COMPLETE:
     case CREATE_CART_COMPLETE:
     case ADD_PRODUCT_TOCART_COMPLETE:
-      return { ...state, myCart: action.payload };
+    case UPDATE_QUANTITY_COMPLETE:
+      return { ...state, myCart: action.payload, loading: false };
     case GET_CART_ERROR:
     case ADD_PRODUCT_TOCART_ERROR:
       return { ...state, error: action.payload };

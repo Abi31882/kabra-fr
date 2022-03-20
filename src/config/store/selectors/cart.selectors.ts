@@ -10,3 +10,8 @@ export const cartProductsSelector = createSelector(
   [cartStateSelector],
   (cartState) => cartState.myCart.product
 );
+
+export const cartLoadingSelector = createSelector(
+  [cartStateSelector],
+  (cartState) => cartState.loading
+);

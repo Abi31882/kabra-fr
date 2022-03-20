@@ -12,6 +12,8 @@ import {
   GET_CART_BEGIN,
   GET_CART_COMPLETE,
   GET_CART_ERROR,
+  UPDATE_QUANTITY_BEGIN,
+  UPDATE_QUANTITY_COMPLETE,
 } from "../reducerConstants";
 
 export const getAllProductBeginAction = () => ({
@@ -76,5 +78,24 @@ export const addproductToCartCompleteAction = (cart: Cart) => ({
 
 export const addproductToCartErrorAction = (err: string) => ({
   type: ADD_PRODUCT_TOCART_ERROR,
+  payload: err,
+});
+
+export const updateQuantityBeginAction = (
+  productId: string,
+  cartId: string,
+  quantity: number
+) => ({
+  type: UPDATE_QUANTITY_BEGIN,
+  payload: { productId, cartId, quantity },
+});
+
+export const updateQuantityCompleteAction = (cart: Cart) => ({
+  type: UPDATE_QUANTITY_COMPLETE,
+  payload: cart,
+});
+
+export const updateQuantityErrorAction = (err: string) => ({
+  type: UPDATE_QUANTITY_COMPLETE,
   payload: err,
 });

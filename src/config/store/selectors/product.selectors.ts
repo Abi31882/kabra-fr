@@ -5,3 +5,8 @@ export const allproductsSelector = createSelector(
   [productStateSelector],
   (productState) => productState.products
 );
+
+export const productLoadingSelector = createSelector(
+  [productStateSelector],
+  (productState) => productState.loading
+);

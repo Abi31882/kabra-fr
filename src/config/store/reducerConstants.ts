@@ -25,3 +25,7 @@ export const CREATE_CART_ERROR = "create/cart_error";
 export const ADD_PRODUCT_TOCART_BEGIN = "add/product_tocart_begin";
 export const ADD_PRODUCT_TOCART_COMPLETE = "add/product_tocart_complete";
 export const ADD_PRODUCT_TOCART_ERROR = "add/product_tocart_error";
+
+export const UPDATE_QUANTITY_BEGIN = "update/quantity_begin";
+export const UPDATE_QUANTITY_COMPLETE = "update/quantity_complete";
+export const UPDATE_QUANTITY_ERROR = "update/quantity_error";

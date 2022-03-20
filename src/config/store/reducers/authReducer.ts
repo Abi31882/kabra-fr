@@ -6,6 +6,7 @@ import {
   LOGIN_BEGIN,
   LOGIN_COMPLETE,
   LOGIN_ERROR,
+  SIGNUP_BEGIN,
   SIGNUP_COMPLETE,
   SIGNUP_ERROR,
 } from "../reducerConstants";
@@ -28,6 +29,7 @@ export const authReducer: Reducer<AuthState> = (
 ) => {
   switch (action.type) {
     case LOGIN_BEGIN:
+    case SIGNUP_BEGIN:
       return { ...state, loading: true };
     case SIGNUP_COMPLETE:
     case LOGIN_COMPLETE:
@@ -43,6 +45,7 @@ export const authReducer: Reducer<AuthState> = (
       return {
         ...state,
         error: action.payload,
+        loading: false,
       };
     default:
       return state;

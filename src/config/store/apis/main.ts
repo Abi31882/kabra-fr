@@ -57,11 +57,11 @@ export const updateQuantity = (
 ) => {
   const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
 
-  return axios.patch(
-    url,
-    { quantity: quantity },
-    { headers: { Authorization: token! } }
-  );
+  return axios
+    .patch(url, { quantity: quantity }, { headers: { Authorization: token! } })
+    .then((r) => {
+      window.location.href = "/cart";
+    });
 };
 
 export const createProduct = (data: any) => {

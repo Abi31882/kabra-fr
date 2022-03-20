@@ -9,13 +9,10 @@ import { AnyAction } from "redux";
 import {
   getMeCompleteAction,
   getMeErrorAction,
-  GET_ME_BEGIN,
   loginCompleteAction,
   loginErrorAction,
-  LOGIN_BEGIN,
   signupCompleteAction,
   signupErrorAction,
-  SIGNUP_BEGIN,
 } from "../actions/auth.actions";
 import {
   addproductToCartCompleteAction,
@@ -46,6 +43,9 @@ import {
   CREATE_CART_BEGIN,
   GET_ALL_PRODUCTS_BEGIN,
   GET_CART_BEGIN,
+  GET_ME_BEGIN,
+  LOGIN_BEGIN,
+  SIGNUP_BEGIN,
   UPDATE_QUANTITY_BEGIN,
 } from "../reducerConstants";
 
@@ -149,6 +149,7 @@ function* UpdateQuantity(action: AnyAction): Generator<any> {
   try {
     const res: any = yield call(updateQuantity, productId, cartId, quantity);
     yield put(updateQuantityCompleteAction(res.data));
+    // window.location.href = "/";
   } catch (e: any) {
     yield put(updateQuantityErrorAction(e.response.data));
     alert(e.response.data);

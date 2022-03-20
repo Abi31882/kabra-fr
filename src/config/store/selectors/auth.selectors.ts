@@ -6,7 +6,7 @@ export const userIdSelector = createSelector(
   (authState) => authState.user._id
 );
 
-export const loadingSelector = createSelector(
+export const authLoadingSelector = createSelector(
   [authStateSelector],
   (authState) => authState.loading
 );

@@ -3,29 +3,20 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../config/store";
 import { loginBeginAction } from "../config/store/actions/auth.actions";
-import { loadingSelector } from "../config/store/selectors/auth.selectors";
+import { authLoadingSelector } from "../config/store/selectors/auth.selectors";
 import img from "../images/bg_1.jpg";
 import ReactLoading from "react-loading";
+import Loader from "./loader";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const loading = useAppSelector(loadingSelector);
+  const loading = useAppSelector(authLoadingSelector);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   console.log(loading);
 
   if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "250px",
-        }}
-      >
-        <ReactLoading color="black" height="screen" type="spin" />
-      </div>
-    );
+    return <Loader />;
   }
 
   const onSubmit = (e: any) => {

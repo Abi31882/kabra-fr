@@ -53,6 +53,7 @@ const CreateProduct = () => {
           type="name"
           className="form-control"
           placeholder="Enter name"
+          required
           onChange={(e) => handleInputChange1(e)}
         />
       </div>
@@ -61,6 +62,7 @@ const CreateProduct = () => {
         <input
           type="file"
           className="form-control-file"
+          required
           id="exampleFormControlFile1"
           onChange={(e) => handleInputChange2(e)}
         />
@@ -82,6 +84,7 @@ const CreateProduct = () => {
         <input
           type="text"
           className="form-control"
+          required
           placeholder="Description"
           onChange={(e) => handleInputChange3(e)}
         />
@@ -91,6 +94,7 @@ const CreateProduct = () => {
         <input
           type="text"
           className="form-control"
+          required
           placeholder="price"
           onChange={(e) => handleInputChange4(e)}
         />
@@ -101,13 +105,14 @@ const CreateProduct = () => {
           type="text"
           className="form-control"
           placeholder="Quantity"
+          required
           value={quantity}
         />
       </div>
 
       <button
         onClick={(e) => submit(e)}
-        type="submit"
+        type="button"
         className="btn btn-primary"
       >
         Submit

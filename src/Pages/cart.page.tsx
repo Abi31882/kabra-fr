@@ -13,6 +13,7 @@ import {
   cartProductsSelector,
 } from "../config/store/selectors/cart.selectors";
 import "./css/cart.css";
+import Loader from "./loader";
 const MyCart = () => {
   const loading = useAppSelector(cartLoadingSelector);
   const dispatch = useDispatch();
@@ -22,17 +23,7 @@ const MyCart = () => {
   const reducer = (accumulator: number, curr: number) => accumulator + curr;
 
   if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "250px",
-        }}
-      >
-        <ReactLoading color="black" height="screen" type="spin" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
@@ -69,7 +60,6 @@ const MyCart = () => {
                                     p.quantity - 1
                                   )
                                 );
-                                dispatch(getCartBeginAction());
                                 // updateQuantity(
                                 //   p.productID,
                                 //   cartId,

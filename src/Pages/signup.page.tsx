@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../config/store";
 import { signupBeginAction } from "../config/store/actions/auth.actions";
+import { authLoadingSelector } from "../config/store/selectors/auth.selectors";
 import img from "../images/bg_1.jpg";
+import Loader from "./loader";
 
 const Signup = () => {
+  const loading = useAppSelector(authLoadingSelector);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +17,10 @@ const Signup = () => {
     e.preventDefault();
     dispatch(signupBeginAction({ userName, password }));
   };
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="d-lg-flex half">
       <div

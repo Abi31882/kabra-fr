@@ -1,14 +1,15 @@
 import { LoginRequest, SignupRequest, User } from "../interfaces";
-import { GET_ME_ERROR, LOGIN_ERROR, SIGNUP_ERROR } from "../reducerConstants";
-
-export const LOGIN_BEGIN = "login/begin";
-export const LOGIN_COMPLETE = "login/complete";
-
-export const SIGNUP_BEGIN = "signup/begin";
-export const SIGNUP_COMPLETE = "signup/complete";
-
-export const GET_ME_BEGIN = "get/me_begin";
-export const GET_ME_COMPLETE = "get/me_complete";
+import {
+  GET_ME_BEGIN,
+  GET_ME_COMPLETE,
+  GET_ME_ERROR,
+  LOGIN_BEGIN,
+  LOGIN_COMPLETE,
+  LOGIN_ERROR,
+  SIGNUP_BEGIN,
+  SIGNUP_COMPLETE,
+  SIGNUP_ERROR,
+} from "../reducerConstants";
 
 export const loginBeginAction = (data: LoginRequest) => ({
   type: LOGIN_BEGIN,

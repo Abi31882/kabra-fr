@@ -12,6 +12,7 @@ import { logout } from "../config/store/apis/auth";
 import { userIdSelector } from "../config/store/selectors/auth.selectors";
 import {
   cartIdSelector,
+  cartLoadingSelector,
   cartProductsSelector,
 } from "../config/store/selectors/cart.selectors";
 import {
@@ -19,9 +20,11 @@ import {
   productLoadingSelector,
 } from "../config/store/selectors/product.selectors";
 import "./css/overview.css";
+import Loader from "./loader";
 
 export const Overview = () => {
-  const loading = useAppSelector(productLoadingSelector);
+  const loading1 = useAppSelector(productLoadingSelector);
+  const loading2 = useAppSelector(cartLoadingSelector);
   const user = useAppSelector(userIdSelector);
   const navigate = useNavigate();
   const cart = useAppSelector(cartIdSelector);
@@ -33,18 +36,8 @@ export const Overview = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "250px",
-        }}
-      >
-        <ReactLoading color="black" height="screen" type="spin" />
-      </div>
-    );
+  if (loading1 || loading2) {
+    return <Loader />;
   }
 
   return (

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ReactLoading from "react-loading";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../config/store";
 import {
   addproductToCartBeginAction,

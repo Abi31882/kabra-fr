@@ -5,7 +5,6 @@ import { useAppSelector } from "../config/store";
 import { loginBeginAction } from "../config/store/actions/auth.actions";
 import { authLoadingSelector } from "../config/store/selectors/auth.selectors";
 import img from "../images/bg_1.jpg";
-import ReactLoading from "react-loading";
 import Loader from "./loader";
 
 const Login = () => {

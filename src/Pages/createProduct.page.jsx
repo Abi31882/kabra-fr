@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { beginTheBar } from "../config/loadingBarService";
 import { createProduct } from "../config/store/apis/main";
 
 const CreateProduct = () => {
@@ -20,6 +21,7 @@ const CreateProduct = () => {
   };
 
   const submit = (e) => {
+    beginTheBar();
     e.preventDefault();
     createProduct(data);
   };

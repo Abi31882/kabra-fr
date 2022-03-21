@@ -1,4 +1,5 @@
 import axios from "axios";
+import { endTheBar } from "../../loadingBarService";
 import { Products } from "../interfaces";
 import { AUTH_TOKEN, BASE_URL } from "./auth";
 
@@ -88,9 +89,11 @@ export const createProduct = (data: any) => {
   })
     .then((r) => {
       console.log("product created successfully");
+      endTheBar();
       window.location.href = "/";
     })
     .catch((e) => {
       alert(e.response.data);
+      endTheBar();
     });
 };

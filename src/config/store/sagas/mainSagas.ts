@@ -115,10 +115,13 @@ function* Allproducts(action: AnyAction): Generator<any> {
 
 function* MyCart(action: AnyAction): Generator<any> {
   try {
+    beginTheBar();
     const res: any = yield call(myCart);
     yield put(getCartCompleteAction(res.data));
+    endTheBar();
   } catch (e: any) {
     yield put(getCartErrorAction(e.response.data));
+    endTheBar();
   }
 }
 
@@ -156,13 +159,15 @@ function* AddProductToCart(action: AnyAction): Generator<any> {
 
 function* UpdateQuantity(action: AnyAction): Generator<any> {
   const { productId, cartId, quantity } = action.payload;
+  beginTheBar();
   try {
+    endTheBar();
     const res: any = yield call(updateQuantity, productId, cartId, quantity);
-    console.log(res.data);
     yield put(updateQuantityCompleteAction());
   } catch (e: any) {
     yield put(updateQuantityErrorAction(e.response.data));
     alert(e.response.data);
+    endTheBar();
   }
 }
 // function* GetMe(action: AnyAction): Generator<any> {

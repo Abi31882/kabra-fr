@@ -39,16 +39,13 @@ const CreateProduct = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    createProduct(data).then((r) => {
-      alert("product created successfully");
-      window.location.href = "/";
-    });
+    createProduct(data);
   };
 
   return (
     <form>
       <div className="form-group">
-        <label htmlFor="exampleInputEmail1">Name</label>
+        <label htmlFor="exampleInputEmail1">Name *</label>
         <input
           type="name"
           className="form-control"
@@ -58,7 +55,7 @@ const CreateProduct = () => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="exampleFormControlFile1">Image</label>
+        <label htmlFor="exampleFormControlFile1">Image *</label>
         <input
           type="file"
           className="form-control-file"
@@ -80,7 +77,7 @@ const CreateProduct = () => {
         </div>
       )}
       <div className="form-group">
-        <label htmlFor="exampleInputPassword1">Description</label>
+        <label htmlFor="exampleInputPassword1">Description *</label>
         <input
           type="text"
           className="form-control"
@@ -90,7 +87,7 @@ const CreateProduct = () => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="exampleCheck1">Price</label>
+        <label htmlFor="exampleCheck1">Price *</label>
         <input
           type="text"
           className="form-control"

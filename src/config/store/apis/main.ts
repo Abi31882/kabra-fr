@@ -85,5 +85,12 @@ export const createProduct = (data: any) => {
       "Content-type": "application/json",
       "Content-Type": "multipart/form-data",
     },
-  });
+  })
+    .then((r) => {
+      console.log("product created successfully");
+      window.location.href = "/";
+    })
+    .catch((e) => {
+      alert(e.response.data);
+    });
 };

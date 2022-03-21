@@ -127,11 +127,13 @@ function* MyCart(action: AnyAction): Generator<any> {
 
 function* CreateCart(action: AnyAction): Generator<any> {
   try {
+    beginTheBar();
     const res: any = yield call(createMyCart, action.payload);
     yield put(createCartCompleteAction(res.data));
-    alert("cart created successfully");
+    endTheBar();
   } catch (e: any) {
     alert(e.response.data.errors.user.message);
+    endTheBar();
   }
 }
 

@@ -1,33 +1,24 @@
-import React, { useEffect } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
-import routeConfig from "./config/routes/routes";
-import { getMeBeginAction } from "./config/store/actions/auth.actions";
-import { AUTH_TOKEN } from "./config/store/apis/auth";
 import { useDispatch } from "react-redux";
-import { getCartBeginAction } from "./config/store/actions/product.actions";
+import { setLoadingBarProgress } from "./config/store/actions/product.actions";
+import { useAppSelector } from "./config/store";
+import { loadingBarSelector } from "./config/store/selectors/loadingBar.selectors";
+import Router from "./config/routes/router";
 
 function App() {
   const dispatch = useDispatch();
-  const token = localStorage.getItem(AUTH_TOKEN);
+  const loadingProgress = useAppSelector(loadingBarSelector);
 
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
-    dispatch(getMeBeginAction());
-    dispatch(getCartBeginAction());
-  });
   return (
-    <BrowserRouter>
-      <Routes>
-        {routeConfig.routes.map((route) => (
-          <Route path={route.path} element={<route.element />} />
-        ))}
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <LoadingBar
+        progress={loadingProgress}
+        onLoaderFinished={() => dispatch(setLoadingBarProgress(0))}
+      />
+      <Router />
+    </div>
   );
 }
 

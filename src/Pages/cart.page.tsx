@@ -7,22 +7,15 @@ import {
 } from "../config/store/actions/product.actions";
 import {
   cartIdSelector,
-  cartLoadingSelector,
   cartProductsSelector,
 } from "../config/store/selectors/cart.selectors";
 import "./css/cart.css";
-import Loader from "./loader";
 const MyCart = () => {
-  const loading = useAppSelector(cartLoadingSelector);
   const dispatch = useDispatch();
   const cartProducts = useAppSelector(cartProductsSelector);
   const cartId = useAppSelector(cartIdSelector);
   const myArr = cartProducts.map((p) => p.price * p.quantity);
   const reducer = (accumulator: number, curr: number) => accumulator + curr;
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div className="cart_section">

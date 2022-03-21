@@ -6,6 +6,7 @@ import {
   takeLatest,
 } from "@redux-saga/core/effects";
 import { AnyAction } from "redux";
+import { beginTheBar, endTheBar } from "../../loadingBarService";
 import {
   getMeCompleteAction,
   getMeErrorAction,
@@ -51,6 +52,7 @@ import {
 
 function* Login(action: AnyAction): Generator<any> {
   try {
+    beginTheBar();
     const res: any = yield call(loginRequest, {
       userName: action.payload.userName,
       password: action.payload.password,
@@ -58,11 +60,12 @@ function* Login(action: AnyAction): Generator<any> {
     yield put(loginCompleteAction(res.data.doc));
 
     localStorage.setItem(AUTH_TOKEN, "Bearer " + res.data.token);
-    // alert(`welcome ${res.data.doc.userName}, we are logging you in`);
+    endTheBar();
     window.location.href = "/";
   } catch (e: any) {
     yield put(loginErrorAction(e.response.data.message));
     alert(e.response.data.message);
+    endTheBar();
   }
 }
 
@@ -77,6 +80,7 @@ function* GetMe(action: AnyAction): Generator<any> {
 
 function* Signup(action: AnyAction): Generator<any> {
   try {
+    beginTheBar();
     const res: any = yield call(signupRequest, {
       userName: action.payload.userName,
       password: action.payload.password,
@@ -84,7 +88,7 @@ function* Signup(action: AnyAction): Generator<any> {
     yield put(signupCompleteAction(res.data.doc));
 
     localStorage.setItem(AUTH_TOKEN, "Bearer " + res.data.token);
-
+    endTheBar();
     // alert(
     //   `welcome ${res.data.doc.userName}, account has been created successfully, we are logging you in`
     // );
@@ -92,16 +96,20 @@ function* Signup(action: AnyAction): Generator<any> {
   } catch (e: any) {
     yield put(signupErrorAction(e.response.data.message));
     alert(e.response.data.message);
+    endTheBar();
   }
 }
 
 function* Allproducts(action: AnyAction): Generator<any> {
   try {
+    beginTheBar();
     const res: any = yield call(allProductsRequest);
     yield put(getAllProductCompleteAction(res.data));
+    endTheBar();
   } catch (e: any) {
     alert(e);
     yield put(getAllProductErrorAction(e));
+    endTheBar();
   }
 }
 
@@ -126,6 +134,7 @@ function* CreateCart(action: AnyAction): Generator<any> {
 
 function* AddProductToCart(action: AnyAction): Generator<any> {
   try {
+    beginTheBar();
     const { productId, cartId, name, image, price, quantity } = action.payload;
     const res: any = yield call(
       addToCart,
@@ -137,10 +146,11 @@ function* AddProductToCart(action: AnyAction): Generator<any> {
       quantity
     );
     yield put(addproductToCartCompleteAction(res.data.doc));
-    alert("product added successfully");
+    endTheBar();
   } catch (e: any) {
     yield put(addproductToCartErrorAction(e.response.data));
     alert(e.response.data);
+    endTheBar();
   }
 }
 

@@ -1,21 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../config/store";
 import { loginBeginAction } from "../config/store/actions/auth.actions";
-import { authLoadingSelector } from "../config/store/selectors/auth.selectors";
 import img from "../images/bg_1.jpg";
-import Loader from "./loader";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const loading = useAppSelector(authLoadingSelector);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
-  if (loading) {
-    return <Loader />;
-  }
 
   const onSubmit = (e: any) => {
     e.preventDefault();

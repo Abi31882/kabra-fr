@@ -12,6 +12,7 @@ import {
   GET_CART_BEGIN,
   GET_CART_COMPLETE,
   GET_CART_ERROR,
+  SET_PROGRESS,
   UPDATE_QUANTITY_BEGIN,
   UPDATE_QUANTITY_COMPLETE,
 } from "../reducerConstants";
@@ -97,4 +98,9 @@ export const updateQuantityCompleteAction = () => ({
 export const updateQuantityErrorAction = (err: string) => ({
   type: UPDATE_QUANTITY_COMPLETE,
   payload: err,
+});
+
+export const setLoadingBarProgress = (value: any) => ({
+  type: SET_PROGRESS,
+  payload: value,
 });

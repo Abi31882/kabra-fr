@@ -29,3 +29,5 @@ export const ADD_PRODUCT_TOCART_ERROR = "add/product_tocart_error";
 export const UPDATE_QUANTITY_BEGIN = "update/quantity_begin";
 export const UPDATE_QUANTITY_COMPLETE = "update/quantity_complete";
 export const UPDATE_QUANTITY_ERROR = "update/quantity_error";
+
+export const SET_PROGRESS = "SET_PROGRESS";

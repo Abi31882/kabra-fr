@@ -14,20 +14,14 @@ import {
 } from "../config/store/selectors/auth.selectors";
 import {
   cartIdSelector,
-  cartLoadingSelector,
   cartProductsSelector,
 } from "../config/store/selectors/cart.selectors";
-import {
-  allproductsSelector,
-  productLoadingSelector,
-} from "../config/store/selectors/product.selectors";
+import { allproductsSelector } from "../config/store/selectors/product.selectors";
 import "./css/overview.css";
-import Loader from "./loader";
 
 export const Overview = () => {
   const User = useAppSelector(userSelector);
-  const loading1 = useAppSelector(productLoadingSelector);
-  const loading2 = useAppSelector(cartLoadingSelector);
+
   const user = useAppSelector(userIdSelector);
   const navigate = useNavigate();
   const cart = useAppSelector(cartIdSelector);
@@ -38,10 +32,6 @@ export const Overview = () => {
     dispatch(getAllProductBeginAction());
     // eslint-disable-next-line
   }, []);
-
-  if (loading1 || loading2) {
-    return <Loader />;
-  }
 
   return (
     <section className="section-products">

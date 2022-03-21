@@ -38,6 +38,7 @@ const Signup = () => {
                 <div className="form-group first">
                   <label htmlFor="username">Username</label>
                   <input
+                    required
                     type="text"
                     className="form-control"
                     placeholder="your-email@gmail.com"
@@ -50,6 +51,7 @@ const Signup = () => {
                 <div className="form-group last mb-3">
                   <label htmlFor="password">Password</label>
                   <input
+                    required
                     type="password"
                     className="form-control"
                     placeholder="Your Password"

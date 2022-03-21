@@ -19,24 +19,6 @@ const CreateProduct = () => {
     };
   };
 
-  const handleInputChange1 = (e) => {
-    const file = e.target.value;
-    setName(file);
-  };
-  const handleInputChange2 = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    previewFile(file);
-  };
-  const handleInputChange3 = (e) => {
-    const file = e.target.value;
-    setDescription(file);
-  };
-  const handleInputChange4 = (e) => {
-    const file = e.target.value;
-    setPrice(file);
-  };
-
   const submit = (e) => {
     e.preventDefault();
     createProduct(data);
@@ -51,7 +33,7 @@ const CreateProduct = () => {
           className="form-control"
           placeholder="Enter name"
           required
-          onChange={(e) => handleInputChange1(e)}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className="form-group">
@@ -61,7 +43,10 @@ const CreateProduct = () => {
           className="form-control-file"
           required
           id="exampleFormControlFile1"
-          onChange={(e) => handleInputChange2(e)}
+          onChange={(e) => {
+            setImage(e.target.files[0]);
+            previewFile(e.target.files[0]);
+          }}
         />
       </div>
       {previewSource && (
@@ -69,7 +54,11 @@ const CreateProduct = () => {
           <div>Preview</div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <img
-              style={{ width: "40px", borderRadius: "9999px" }}
+              style={{
+                width: "100px",
+                height: "100px",
+                borderRadius: "9999px",
+              }}
               src={previewSource}
               alt="chosen"
             />
@@ -83,7 +72,7 @@ const CreateProduct = () => {
           className="form-control"
           required
           placeholder="Description"
-          onChange={(e) => handleInputChange3(e)}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
       <div className="form-group">
@@ -93,7 +82,7 @@ const CreateProduct = () => {
           className="form-control"
           required
           placeholder="price"
-          onChange={(e) => handleInputChange4(e)}
+          onChange={(e) => setPrice(e.target.value)}
         />
       </div>
       <div className="form-group">

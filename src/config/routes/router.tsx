@@ -14,6 +14,7 @@ const Router = () => {
   useEffect(() => {
     dispatch(getMeBeginAction());
     dispatch(getCartBeginAction());
+    // eslint-disable-next-line
   }, [token]);
   return (
     <BrowserRouter>

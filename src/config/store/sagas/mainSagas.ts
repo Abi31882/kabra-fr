@@ -162,7 +162,7 @@ function* UpdateQuantity(action: AnyAction): Generator<any> {
   beginTheBar();
   try {
     endTheBar();
-    const res: any = yield call(updateQuantity, productId, cartId, quantity);
+    yield call(updateQuantity, productId, cartId, quantity);
     yield put(updateQuantityCompleteAction());
   } catch (e: any) {
     yield put(updateQuantityErrorAction(e.response.data));
@@ -170,62 +170,6 @@ function* UpdateQuantity(action: AnyAction): Generator<any> {
     endTheBar();
   }
 }
-// function* GetMe(action: AnyAction): Generator<any> {
-//   try {
-//     const res: any = yield call(me);
-//     yield put(getMeCompleteAction(res.data.doc));
-//   } catch (e: any) {
-//     alert(e);
-//   }
-// }
-
-// function* GetAllDiscussions(action: AnyAction): Generator<any> {
-//   try {
-//     const res: any = yield call(getAllDiscussions);
-//     yield put(getAllDiscussionsCompletedAction(res.data));
-//   } catch (e: any) {
-//     alert(e);
-//   }
-// }
-
-// function* GetSingleDiscussion(action: AnyAction): Generator<any> {
-//   try {
-//     const res: any = yield call(getSingleDiscussion, action.payload);
-//     yield put(getSingleDiscussionCompleteAction(res.data));
-//   } catch (e: any) {
-//     alert(e);
-//   }
-// }
-
-// function* CreateReply(action: AnyAction): Generator<any> {
-//   try {
-//     const res: any = yield call(reply, {
-//       discussionID: action.payload.discussionID,
-//       userID: action.payload.userID,
-//       reply: action.payload.reply,
-//     });
-//     yield put(createReplyCompleteAction(res.data));
-//     //eslint-disable-next-line
-//     window.location.href = window.location.href;
-//   } catch (e: any) {
-//     alert(e);
-//   }
-// }
-
-// function* CreateDiscussion(action: AnyAction): Generator<any> {
-//   try {
-//     const res: any = yield call(createDiscussion, {
-//       topic: action.payload.topic,
-//       description: action.payload.description,
-//       id: action.payload.id,
-//     });
-//     yield put(createDiscussionCompleteAction(res.data));
-//     alert("discussion created successfully");
-//     window.location.href = "/discussion-all";
-//   } catch (e: any) {
-//     alert(e);
-//   }
-// }
 export function* watchAll() {
   yield all([
     takeLatest(LOGIN_BEGIN, Login),
@@ -237,11 +181,4 @@ export function* watchAll() {
     takeLatest(ADD_PRODUCT_TOCART_BEGIN, AddProductToCart),
     takeLatest(UPDATE_QUANTITY_BEGIN, UpdateQuantity),
   ]);
-  // yield all([]);
-  // yield all([]);
-  // yield
-  // yield all([takeEvery(GET_ALL_DISCUSSIONS_BEGIN, GetAllDiscussions)]);
-  // yield all([takeEvery(GET_SINGLE_DISCUSSION_BEGIN, GetSingleDiscussion)]);
-  // yield all([takeEvery(CREATING_REPLY_BEGIN, CreateReply)]);
-  // yield all([takeEvery(CREATING_DISCUSSION_BEGIN, CreateDiscussion)]);
 }

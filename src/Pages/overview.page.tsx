@@ -39,7 +39,14 @@ export const Overview = () => {
         <div className="row justify-content-center text-center">
           {user && (
             <div>
-              <button className="btn btn-danger">{User}</button>
+              <button
+                onClick={() => {
+                  navigate("/me");
+                }}
+                className="btn btn-danger"
+              >
+                {User.userName}
+              </button>
             </div>
           )}
           <div className="col-md-8 col-lg-6">

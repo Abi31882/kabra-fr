@@ -19,12 +19,14 @@ export interface CartState {
   myCart: Cart;
   error: string;
   loading: boolean;
+  update: boolean;
 }
 
 const initialState: CartState = {
   myCart: { id: "", user: "", product: [] },
   error: "",
   loading: false,
+  update: false,
 };
 
 export const cartReduser: Reducer<CartState> = (
@@ -40,8 +42,9 @@ export const cartReduser: Reducer<CartState> = (
     case GET_CART_COMPLETE:
     case CREATE_CART_COMPLETE:
     case ADD_PRODUCT_TOCART_COMPLETE:
-    case UPDATE_QUANTITY_COMPLETE:
       return { ...state, myCart: action.payload, loading: false };
+    case UPDATE_QUANTITY_COMPLETE:
+      return { ...state, update: true, loading: false };
     case GET_CART_ERROR:
     case ADD_PRODUCT_TOCART_ERROR:
     case UPDATE_QUANTITY_ERROR:

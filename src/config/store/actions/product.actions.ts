@@ -15,6 +15,7 @@ import {
   SET_PROGRESS,
   UPDATE_QUANTITY_BEGIN,
   UPDATE_QUANTITY_COMPLETE,
+  UPDATE_QUANTITY_ERROR,
 } from "../reducerConstants";
 
 export const getAllProductBeginAction = () => ({
@@ -96,7 +97,7 @@ export const updateQuantityCompleteAction = () => ({
 });
 
 export const updateQuantityErrorAction = (err: string) => ({
-  type: UPDATE_QUANTITY_COMPLETE,
+  type: UPDATE_QUANTITY_ERROR,
   payload: err,
 });
 

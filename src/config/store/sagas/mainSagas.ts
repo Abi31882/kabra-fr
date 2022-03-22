@@ -21,6 +21,7 @@ import {
   createCartCompleteAction,
   getAllProductCompleteAction,
   getAllProductErrorAction,
+  getCartBeginAction,
   getCartCompleteAction,
   getCartErrorAction,
   updateQuantityCompleteAction,
@@ -89,9 +90,7 @@ function* Signup(action: AnyAction): Generator<any> {
 
     localStorage.setItem(AUTH_TOKEN, "Bearer " + res.data.token);
     endTheBar();
-    // alert(
-    //   `welcome ${res.data.doc.userName}, account has been created successfully, we are logging you in`
-    // );
+
     window.location.href = "/";
   } catch (e: any) {
     yield put(signupErrorAction(e.response.data.message));
@@ -163,9 +162,11 @@ function* UpdateQuantity(action: AnyAction): Generator<any> {
   const { productId, cartId, quantity } = action.payload;
   beginTheBar();
   try {
-    endTheBar();
-    yield call(updateQuantity, productId, cartId, quantity);
+    // eslint-disable-next-line
+    const res: any = yield call(updateQuantity, productId, cartId, quantity);
     yield put(updateQuantityCompleteAction());
+    yield put(getCartBeginAction());
+    endTheBar();
   } catch (e: any) {
     yield put(updateQuantityErrorAction(e.response.data));
     alert(e.response.data);

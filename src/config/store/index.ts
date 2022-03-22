@@ -15,11 +15,12 @@ const reducer = combineReducers({
   loadingBar: loadingBarReducer,
 });
 
-export const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware(SagaMiddleware))
-);
+const enhancer =
+  process.env.NODE_ENV === "production"
+    ? applyMiddleware(SagaMiddleware)
+    : composeWithDevTools(applyMiddleware(SagaMiddleware));
 
+export const store = createStore(reducer, enhancer);
 SagaMiddleware.run(watchAll);
 
 export type AppState = ReturnType<typeof reducer>;

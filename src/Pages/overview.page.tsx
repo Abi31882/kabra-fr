@@ -21,7 +21,6 @@ import "./css/overview.css";
 
 export const Overview = () => {
   const User = useAppSelector(userSelector);
-
   const user = useAppSelector(userIdSelector);
   const navigate = useNavigate();
   const cart = useAppSelector(cartIdSelector);
@@ -61,7 +60,7 @@ export const Overview = () => {
               </button>
             </div>
           )}
-          {user && (
+          {user && cart && (
             <div
               style={{ marginRight: "10px" }}
               onClick={() => navigate("/cart")}

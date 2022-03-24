@@ -5,9 +5,9 @@ import { authReducer } from "./reducers/authReducer";
 import { cartReduser } from "./reducers/cartReducer";
 import { loadingBarReducer } from "./reducers/loadingBar";
 import { productsReduser } from "./reducers/productReducer";
-import { SagaMiddleware } from "./sagas";
-import { watchAll } from "./sagas/mainSagas";
-
+// import { SagaMiddleware } from "./sagas";
+// import { watchAll } from "./sagas/mainSagas";
+import thunk from "redux-thunk";
 const reducer = combineReducers({
   auth: authReducer,
   products: productsReduser,
@@ -17,11 +17,11 @@ const reducer = combineReducers({
 
 const enhancer =
   process.env.NODE_ENV === "production"
-    ? applyMiddleware(SagaMiddleware)
-    : composeWithDevTools(applyMiddleware(SagaMiddleware));
+    ? applyMiddleware(thunk)
+    : composeWithDevTools(applyMiddleware(thunk));
 
 export const store = createStore(reducer, enhancer);
-SagaMiddleware.run(watchAll);
+// SagaMiddleware.run(watchAll);
 
 export type AppState = ReturnType<typeof reducer>;
 

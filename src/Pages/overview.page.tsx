@@ -115,7 +115,7 @@ export const Overview = () => {
                       <button
                         className="btn btn-dark"
                         onClick={() => {
-                          dispatch(createCartBeginAction(user));
+                          dispatch(createCartBeginAction());
                         }}
                       >
                         Create my cart

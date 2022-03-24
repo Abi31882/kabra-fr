@@ -1,34 +1,29 @@
-import axios from "axios";
 import { endTheBar } from "../../loadingBarService";
 import { Products } from "../interfaces";
-import { AUTH_TOKEN, BASE_URL } from "./auth";
+import { AUTH_TOKEN } from "./auth";
+import instance from "./base";
 
 const token = localStorage.getItem(AUTH_TOKEN);
 
 export const allProductsRequest = () => {
-  const url = BASE_URL + "/product";
-
-  return axios.get<Products[]>(url);
+  return instance.get<Products[]>("/product");
 };
 
 export const myCart = () => {
-  const url = BASE_URL + "/cart/myCart";
-
-  return axios.get(url, { headers: { Authorization: token! } });
+  return instance.get("/cart/myCart", {
+    headers: { Authorization: token! },
+  });
 };
 
-export const createMyCart = (user: string) => {
-  const url = BASE_URL + "/cart/create";
-  console.log(user);
-
-  return axios.post(
-    url,
+export const createMyCart = async (user: string) => {
+  return await instance.post(
+    "/cart/create",
     { user: user },
     { headers: { Authorization: token! } }
   );
 };
 
-export const addToCart = (
+export const addToCart = async (
   productId: string,
   cartId: string,
   name: string,
@@ -36,10 +31,8 @@ export const addToCart = (
   price: number,
   quantity: number
 ) => {
-  const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
-
-  return axios.post(
-    url,
+  return await instance.post(
+    "/product/" + productId + "/cart/" + cartId,
     {
       name: name,
       image: image,
@@ -51,38 +44,31 @@ export const addToCart = (
   );
 };
 
-export const updateQuantity = (
+export const updateQuantity = async (
   productId: string,
   cartId: string,
   quantity: number
 ) => {
-  const url = BASE_URL + "/product/" + productId + "/cart/" + cartId;
-
-  return axios.patch(
-    url,
+  return await instance.patch(
+    "/product/" + productId + "/cart/" + cartId,
     { quantity: quantity },
     { headers: { Authorization: token! } }
   );
 };
 
-export const createProduct = (data: any) => {
+export const createProduct = async (data: any) => {
   const form = new FormData();
-  // console.log(form);
   form.append("name", data.name);
   form.append("image", data.image);
   form.append("description", data.description);
   form.append("price", data.price);
   form.append("quantity", data.quantity);
 
-  // form.append("image", data);
-  const url = BASE_URL + "/product/create";
-
-  return axios({
+  return await instance({
     method: "POST",
-    url: url,
+    url: "/product/create",
     data: form,
     headers: {
-      // Authorization: AUTH_TOKEN,
       "Content-type": "application/json",
       "Content-Type": "multipart/form-data",
     },

@@ -10,7 +10,6 @@ import Router from "./config/routes/router";
 function App() {
   const dispatch = useDispatch();
   const loadingProgress = useAppSelector(loadingBarSelector);
-
   return (
     <div>
       <LoadingBar

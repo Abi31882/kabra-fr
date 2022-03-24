@@ -51,12 +51,6 @@ const MyCart = () => {
                                     p.quantity - 1
                                   )
                                 );
-                                // updateQuantity(
-                                //   p.productID,
-                                //   cartId,
-                                //   p.quantity - 1
-                                // ).then((r) => {
-                                // });
                               }}
                               className="quantity-item"
                             >
@@ -85,14 +79,6 @@ const MyCart = () => {
                                   )
                                 );
                                 dispatch(getCartBeginAction());
-
-                                // updateQuantity(
-                                //   p.productID,
-                                //   cartId,
-                                //   p.quantity + 1
-                                // ).then((r) => {
-                                //   dispatch(getCartBeginAction());
-                                // });
                               }}
                               className="quantity-item"
                             >

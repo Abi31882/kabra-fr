@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   LoginRequest,
   LoginResponse,
@@ -6,30 +5,23 @@ import {
   SignupRequest,
   SignupResponse,
 } from "../interfaces";
-
-// export const BASE_URL = "http://127.0.0.1:1337/api";
-// export const BASE_URL = "https://boiling-journey-78408.herokuapp.com";
-export const BASE_URL = "https://kabra-typ.herokuapp.com/api";
+import instance from "./base";
 
 export const AUTH_TOKEN = "Login Token";
 
-export const loginRequest = (data: LoginRequest) => {
-  const url = BASE_URL + "/users/login";
-
-  return axios.post<LoginResponse>(url, data);
+export const loginRequest = async (data: LoginRequest) => {
+  return await instance.post<LoginResponse>("/users/login", data);
 };
 
 export const signupRequest = (data: SignupRequest) => {
-  const url = BASE_URL + "/users/signup";
-
-  return axios.post<SignupResponse>(url, data);
+  return instance.post<SignupResponse>("/users/signup", data);
 };
 
 const token = localStorage.getItem(AUTH_TOKEN);
 export const meRequest = () => {
-  const url = BASE_URL + "/users/me";
-
-  return axios.get<MeResponse>(url, { headers: { Authorization: token! } });
+  return instance.get<MeResponse>("/users/me", {
+    headers: { Authorization: token! },
+  });
 };
 
 export const logout = () => {

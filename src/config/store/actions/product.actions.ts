@@ -1,3 +1,13 @@
+import { Dispatch } from "redux";
+import { AppState } from "..";
+import { beginTheBar, endTheBar } from "../../loadingBarService";
+import {
+  addToCart,
+  allProductsRequest,
+  createMyCart,
+  myCart,
+  updateQuantity,
+} from "../apis/main";
 import { Cart, NewCart, Products } from "../interfaces";
 import {
   ADD_PRODUCT_TOCART_BEGIN,
@@ -18,7 +28,22 @@ import {
   UPDATE_QUANTITY_ERROR,
 } from "../reducerConstants";
 
-export const getAllProductBeginAction = () => ({
+export const getAllProductBeginAction =
+  () => async (dispatch: Dispatch, state: AppState) => {
+    beginTheBar();
+    dispatch(getAllProductBegin());
+    await allProductsRequest()
+      .then((r) => {
+        dispatch(getAllProductCompleteAction(r.data));
+        endTheBar();
+      })
+      .catch((e) => {
+        dispatch(getAllProductErrorAction(e));
+        endTheBar();
+      });
+  };
+
+export const getAllProductBegin = () => ({
   type: GET_ALL_PRODUCTS_BEGIN,
 });
 
@@ -32,7 +57,22 @@ export const getAllProductErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const getCartBeginAction = () => ({
+export const getCartBeginAction: any =
+  () => async (dispatch: Dispatch, state: AppState) => {
+    beginTheBar();
+    dispatch(getCartBegin());
+    await myCart()
+      .then((r) => {
+        dispatch(getCartCompleteAction(r.data));
+        endTheBar();
+      })
+      .catch((e) => {
+        dispatch(getCartErrorAction(e.response.data));
+        endTheBar();
+      });
+  };
+
+export const getCartBegin = () => ({
   type: GET_CART_BEGIN,
 });
 
@@ -46,9 +86,26 @@ export const getCartErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const createCartBeginAction = (user: string) => ({
+export const createCartBeginAction =
+  () => async (dispatch: Dispatch, state: any) => {
+    beginTheBar();
+    dispatch(createCartBegin());
+    await createMyCart(state().auth.user._id)
+      .then((r) => {
+        const { user } = createCartCompleteAction(r.data).payload;
+        console.log(user);
+        dispatch(createCartCompleteAction(r.data));
+        console.log(createCartCompleteAction(r.data).payload);
+        endTheBar();
+      })
+      .catch((e) => {
+        dispatch(createCartErrorAction(e.response.data.errors.user.message));
+        endTheBar();
+      });
+  };
+
+export const createCartBegin = () => ({
   type: CREATE_CART_BEGIN,
-  payload: user,
 });
 
 export const createCartCompleteAction = (newCart: NewCart) => ({
@@ -61,16 +118,31 @@ export const createCartErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const addproductToCartBeginAction = (
-  productId: string,
-  cartId: string,
-  name: string,
-  image: string,
-  price: number,
-  quantity: number
-) => ({
+export const addproductToCartBeginAction =
+  (
+    productId: string,
+    cartId: string,
+    name: string,
+    image: string,
+    price: number,
+    quantity: number
+  ) =>
+  async (dispatch: Dispatch, state: any) => {
+    beginTheBar();
+    dispatch(addproductToCartBegin());
+    await addToCart(productId, cartId, name, image, price, quantity)
+      .then((r) => {
+        dispatch(addproductToCartCompleteAction(r.data.doc));
+        endTheBar();
+      })
+      .catch((e) => {
+        dispatch(addproductToCartErrorAction(e.response.data));
+        endTheBar();
+      });
+  };
+
+export const addproductToCartBegin = () => ({
   type: ADD_PRODUCT_TOCART_BEGIN,
-  payload: { productId, cartId, name, image, price, quantity },
 });
 
 export const addproductToCartCompleteAction = (cart: Cart) => ({
@@ -83,13 +155,25 @@ export const addproductToCartErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const updateQuantityBeginAction = (
-  productId: string,
-  cartId: string,
-  quantity: number
-) => ({
+export const updateQuantityBeginAction =
+  (productId: string, cartId: string, quantity: number) =>
+  async (dispatch: Dispatch, state: any) => {
+    beginTheBar();
+    dispatch(updateQuantityBegin());
+    await updateQuantity(productId, cartId, quantity)
+      .then((r) => {
+        dispatch(updateQuantityCompleteAction());
+        dispatch(getCartBeginAction());
+        endTheBar();
+      })
+      .catch((e) => {
+        dispatch(updateQuantityErrorAction(e.response.data));
+        endTheBar();
+      });
+  };
+
+export const updateQuantityBegin = () => ({
   type: UPDATE_QUANTITY_BEGIN,
-  payload: { productId, cartId, quantity },
 });
 
 export const updateQuantityCompleteAction = () => ({

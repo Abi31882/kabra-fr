@@ -10,10 +10,37 @@ import {
   SIGNUP_COMPLETE,
   SIGNUP_ERROR,
 } from "../reducerConstants";
+import { Dispatch } from "redux";
+import { AppState } from "..";
+import { beginTheBar, endTheBar } from "../../loadingBarService";
+import {
+  AUTH_TOKEN,
+  loginRequest,
+  meRequest,
+  signupRequest,
+} from "../apis/auth";
 
-export const loginBeginAction = (data: LoginRequest) => ({
+export const loginBeginAction =
+  (data: LoginRequest) => async (dispatch: Dispatch, state: AppState) => {
+    beginTheBar();
+    dispatch(loginBegin());
+    await loginRequest(data)
+      .then((r) => {
+        dispatch(loginCompleteAction(r.data.doc));
+        localStorage.setItem(AUTH_TOKEN, "Bearer " + r.data.token);
+
+        endTheBar();
+        window.location.href = "/";
+      })
+      .catch((e) => {
+        dispatch(loginErrorAction(e.response.data.message));
+        alert(e.response.data.message);
+        endTheBar();
+      });
+  };
+
+export const loginBegin = () => ({
   type: LOGIN_BEGIN,
-  payload: data,
 });
 
 export const loginCompleteAction = (user: User) => ({
@@ -26,9 +53,27 @@ export const loginErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const signupBeginAction = (data: SignupRequest) => ({
+export const signupBeginAction =
+  (data: SignupRequest) => async (dispatch: Dispatch, state: AppState) => {
+    beginTheBar();
+    dispatch(signupBegin());
+    await signupRequest(data)
+      .then((r) => {
+        dispatch(signupCompleteAction(r.data.doc));
+        localStorage.setItem(AUTH_TOKEN, "Bearer " + r.data.token);
+
+        endTheBar();
+        window.location.href = "/";
+      })
+      .catch((e) => {
+        dispatch(signupErrorAction(e.response.data.message));
+        alert(e.response.data.message);
+        endTheBar();
+      });
+  };
+
+export const signupBegin = () => ({
   type: SIGNUP_BEGIN,
-  payload: data,
 });
 
 export const signupCompleteAction = (user: User) => ({
@@ -41,7 +86,19 @@ export const signupErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const getMeBeginAction = () => ({
+export const getMeBeginAction =
+  () => async (dispatch: Dispatch, state: AppState) => {
+    dispatch(getMebegin());
+    await meRequest()
+      .then((r) => {
+        dispatch(getMeCompleteAction(r.data.doc));
+      })
+      .catch((e) => {
+        dispatch(getMeErrorAction(e.response.data.message));
+      });
+  };
+
+export const getMebegin = () => ({
   type: GET_ME_BEGIN,
 });
 

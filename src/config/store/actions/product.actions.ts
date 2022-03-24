@@ -168,6 +168,7 @@ export const updateQuantityBeginAction =
       })
       .catch((e) => {
         dispatch(updateQuantityErrorAction(e.response.data));
+        alert(e.response.data);
         endTheBar();
       });
   };

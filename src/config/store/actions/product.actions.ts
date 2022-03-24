@@ -87,15 +87,29 @@ export const getCartErrorAction = (err: string) => ({
 });
 
 export const createCartBeginAction =
-  () => async (dispatch: Dispatch, state: any) => {
+  (
+    productId: string,
+    name: string,
+    image: string,
+    price: number,
+    quantity: number
+  ) =>
+  async (dispatch: Dispatch, state: any) => {
     beginTheBar();
     dispatch(createCartBegin());
     await createMyCart(state().auth.user._id)
       .then((r) => {
-        const { user } = createCartCompleteAction(r.data).payload;
-        console.log(user);
         dispatch(createCartCompleteAction(r.data));
-        console.log(createCartCompleteAction(r.data).payload);
+        dispatch(
+          addproductToCartBeginAction(
+            productId,
+            r.data.id,
+            name,
+            image,
+            price,
+            quantity
+          )
+        );
         endTheBar();
       })
       .catch((e) => {
@@ -118,7 +132,7 @@ export const createCartErrorAction = (err: string) => ({
   payload: err,
 });
 
-export const addproductToCartBeginAction =
+export const addproductToCartBeginAction: any =
   (
     productId: string,
     cartId: string,

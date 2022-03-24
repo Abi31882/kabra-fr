@@ -60,7 +60,7 @@ export const Overview = () => {
               </button>
             </div>
           )}
-          {user && cart && (
+          {user && (
             <div
               style={{ marginRight: "10px" }}
               onClick={() => navigate("/cart")}
@@ -118,10 +118,18 @@ export const Overview = () => {
                       <button
                         className="btn btn-dark"
                         onClick={() => {
-                          dispatch(createCartBeginAction());
+                          dispatch(
+                            createCartBeginAction(
+                              p.id,
+                              p.name,
+                              p.image,
+                              p.price,
+                              p.quantity
+                            )
+                          );
                         }}
                       >
-                        Create my cart
+                        Add to cart
                       </button>
                     </div>
                   )

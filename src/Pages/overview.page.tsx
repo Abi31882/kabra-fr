@@ -84,7 +84,10 @@ export const Overview = () => {
                 <div className="part-2">
                   <h3 className="product-title">{p.name}</h3>
                   <h4 className="product-price">₹ {p.price}</h4>
-                  <h4 className="product-price">{p.description}</h4>
+                  <h4 className="product-price">
+                    {p.description.slice(0, 25)}
+                    {"..."}
+                  </h4>
                 </div>
                 {user ? (
                   cart ? (
